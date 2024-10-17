@@ -34,6 +34,14 @@ class HomeFragment : Fragment() {
 
         setupRecyclerView()
 
+        homeViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) {
+                binding.progressBar.visibility = View.VISIBLE
+            } else {
+                binding.progressBar.visibility = View.GONE
+            }
+        }
+
         homeViewModel.events.observe(viewLifecycleOwner) { events ->
             homeAdapter.submitList(events)
         }

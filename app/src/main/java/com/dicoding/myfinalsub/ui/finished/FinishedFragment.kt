@@ -33,6 +33,13 @@ class FinishedFragment : Fragment() {
         val root: View = binding.root
 
         setupRecyclerView()
+        finishedViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) {
+                binding.progressBar.visibility = View.VISIBLE
+            } else {
+                binding.progressBar.visibility = View.GONE
+            }
+        }
 
         finishedViewModel.events.observe(viewLifecycleOwner) { events ->
             finishedEventAdapter.submitList(events)

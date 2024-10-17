@@ -32,6 +32,14 @@ class UpcomingFragment : Fragment() {
         val root: View = binding.root
 
         setupRecyclerView()
+        upcomingViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) {
+                binding.progressBar.visibility = View.VISIBLE
+            } else {
+                binding.progressBar.visibility = View.GONE
+            }
+        }
+
 
         upcomingViewModel.events.observe(viewLifecycleOwner) { events ->
             upcomingAdapter.submitList(events)
